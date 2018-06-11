@@ -2,6 +2,7 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 set shiftwidth=2
+set backspace=2
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
