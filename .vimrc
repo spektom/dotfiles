@@ -3,6 +3,7 @@ set softtabstop=2
 set expandtab
 set shiftwidth=2
 set backspace=2
+set viminfo='20,<10000
 
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii guibg=Red ctermbg=2
@@ -25,6 +26,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'elzr/vim-json'
 Plug 'mindriot101/vim-yapf'
+Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 call plug#end()
 
 syntax on
