@@ -1,0 +1,54 @@
+#!/bin/bash
+
+MONITOR=HDMI-1-1
+LAPTOP=eDP-1-1
+
+CreatePidfile() {
+  pidfile=/tmp/monitor-detect.pid
+  if [ -f $pidfile ] && kill -0 $(cat $pidfile) 2>/dev/null; then
+    echo "Another process is running (PID: $(cat $pidfile))"
+    exit 0
+  fi
+  echo $$ > $pidfile
+  trap "rm -f $pidfile" EXIT
+}
+
+ActivateMonitor() {
+  echo "Switching to external monitor"
+  xrandr --output $MONITOR --mode 1920x1080 --output $LAPTOP --off
+  active_display=$MONITOR
+}
+
+DeactivateMonitor() {
+  echo "Switching to laptop"
+  xrandr --output $MONITOR --off --output $LAPTOP --auto
+  active_display=$LAPTOP
+}
+
+MonitorActive() {
+  [ "$active_display" = $MONITOR ]
+}
+
+MonitorConnected() {
+  [ $(cat /sys/class/drm/card1-HDMI-A-1/status) = "connected" ]
+}
+
+CreatePidfile
+
+while true; do
+  if [ -z "$active_display" ]; then
+    if MonitorConnected; then
+      ActivateMonitor
+    else
+      DeactivateMonitor
+    fi
+  else
+    if ! MonitorActive && MonitorConnected; then
+      ActivateMonitor
+    fi
+    if MonitorActive && ! MonitorConnected; then
+      DeactivateMonitor
+    fi
+  fi
+  sleep 1s
+done

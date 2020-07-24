@@ -1,0 +1,2 @@
+#!/bin/bash
+exec mplayer http://37.130.228.60:8090

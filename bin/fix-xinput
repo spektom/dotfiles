@@ -1,0 +1,5 @@
+#!/bin/bash
+
+xinput set-prop  "DLL07D0:01 044E:120B" "Synaptics Noise Cancellation" 20 20
+xinput set-prop  "DLL07D0:01 044E:120B" "Synaptics Finger" 50 90 255
+xinput set-prop  "DLL07D0:01 044E:120B" "Synaptics Palm Detection" 0

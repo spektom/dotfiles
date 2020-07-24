@@ -1,0 +1,24 @@
+#!/bin/bash
+
+card=$(arecord --list-devices | grep ^card | tail -1 | cut -d: -f1 | awk '{print $NF}')
+
+if [ $card -eq 0 ]; then
+  control=Master
+elif [ $card -eq 1 ]; then
+  control=Speaker
+else
+  echo "Unknown card index: $card"
+  exit 1
+fi
+
+cmd=$1
+
+if [ $cmd = "up" ]; then
+  amixer -c $card -q set $control 2dB+ unmute
+elif [ $cmd = "down" ]; then
+  amixer -c $card -q set $control 2dB- unmute
+elif [ $cmd = "toggle" ]; then
+  amixer -c $card -q set $control toggle
+else
+  echo "USAGE: $0 <up|down|toggle>"
+fi

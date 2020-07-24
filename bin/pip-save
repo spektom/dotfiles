@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [ -z "$VIRTUAL_ENV" ]; then
-  echo "This command works from virtual environment only!"
-  exit 1
-fi
-
 for pkg in $@; do
     pip install "$pkg" && {
         name="$(pip show "$pkg" | grep Name: | awk '{print $2}')";

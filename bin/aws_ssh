@@ -1,0 +1,15 @@
+#!/bin/bash -eu
+
+if [ $# -lt 1 ]; then
+  echo "USAGE: $0 <pattern>"
+  exit 1
+fi
+
+cmd="cssh -K 2"
+
+for ip in $(aws ec2 describe-instances --filters "Name=tag:Name,Values=${1}*" \
+  | jq -r '.Reservations[].Instances[].PrivateIpAddress'); do
+  cmd="${cmd} ubuntu@${ip}"
+done
+
+eval $cmd
