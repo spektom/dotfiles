@@ -15,6 +15,7 @@ order += "wireless _first_"
 order += "battery all"
 order += "load"
 order += "tztime local"
+order += "keyboard_layout"
 
 wireless _first_ {
   format_up = "W: (%quality at %essid)"
@@ -30,10 +31,14 @@ battery all {
   low_threshold = 10
 }
 
+load {
+  format = "%1min"
+}
+
 tztime local {
   format = "%Y-%m-%d %H:%M"
 }
 
-load {
-  format = "%1min"
+keyboard_layout {
+  cache_timeout = 1
 }
