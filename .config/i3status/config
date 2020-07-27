@@ -8,14 +8,14 @@
 
 general {
   colors = true
-  interval = 5
+  interval = 3
 }
 
 order += "wireless _first_"
 order += "battery all"
 order += "load"
 order += "tztime local"
-order += "keyboard_layout"
+order += "kbd_layout"
 
 wireless _first_ {
   format_up = "W: (%quality at %essid)"
@@ -39,6 +39,5 @@ tztime local {
   format = "%Y-%m-%d %H:%M"
 }
 
-keyboard_layout {
-  cache_timeout = 1
+kbd_layout {
 }
