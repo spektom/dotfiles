@@ -1,24 +1,44 @@
 #!/bin/bash
 
-card=$(arecord --list-devices | grep ^card | tail -1 | cut -d: -f1 | awk '{print $NF}')
-
-if [ $card -eq 0 ]; then
-  control=Master
-elif [ $card -eq 1 ]; then
-  control=Speaker
-else
-  echo "Unknown card index: $card"
-  exit 1
-fi
-
 cmd=$1
 
-if [ $cmd = "up" ]; then
-  amixer -c $card -q set $control 2dB+ unmute
-elif [ $cmd = "down" ]; then
-  amixer -c $card -q set $control 2dB- unmute
-elif [ $cmd = "toggle" ]; then
-  amixer -c $card -q set $control toggle
+get_card() {
+  card=$(arecord --list-devices | grep ^card | tail -1 | cut -d: -f1 | awk '{print $NF}')
+}
+
+unmute_all() {
+  amixer -c $card -q set Master unmute
+  amixer -c $card -q set Speaker unmute
+  amixer -c $card -q set Headphone unmute
+}
+
+toggle() {
+  amixer -c $card -q set Master toggle
+  if amixer -c $card get Master | grep "\[on\]" > /dev/null ; then
+    amixer -c $card -q set Speaker unmute
+    amixer -c $card -q set Headphone unmute
+  fi
+}
+
+up() {
+  unmute_all
+  amixer -c $card -q set Master 2dB+
+}
+
+down() {
+  unmute_all
+  amixer -c $card -q set Master 2dB-
+}
+
+if [ "$cmd" = "up" ]; then
+  get_card
+  up
+elif [ "$cmd" = "down" ]; then
+  get_card
+  down
+elif [ "$cmd" = "toggle" ]; then
+  get_card
+  toggle
 else
   echo "USAGE: $0 <up|down|toggle>"
 fi
