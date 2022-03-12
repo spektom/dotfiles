@@ -81,8 +81,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to next/prev workspace
-bindsym Control+Right workspace next
-bindsym Control+Left workspace prev
+bindsym Control+$mod+Right workspace next
+bindsym Control+$mod+Left workspace prev
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -133,7 +133,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command i3status --config ~/.config/i3/status
+  status_command i3status -c ~/.config/i3status/config
 }
 
 for_window [class="^.*"] border pixel 1
@@ -143,3 +143,4 @@ bindsym XF86AudioLowerVolume exec ~/bin/volume down
 bindsym XF86AudioMute exec ~/bin/volume toggle
 
 exec_always --no-startup-id xfce4-power-manager
+exec --no-startup-id i3status-kbd-layout

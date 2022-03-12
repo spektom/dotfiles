@@ -8,13 +8,14 @@
 
 general {
   colors = true
-  interval = 5
+  interval = 3
 }
 
 order += "wireless _first_"
 order += "battery all"
 order += "load"
 order += "tztime local"
+order += "read_file kbd_layout"
 
 wireless _first_ {
   format_up = "W: (%quality at %essid)"
@@ -30,10 +31,14 @@ battery all {
   low_threshold = 10
 }
 
+load {
+  format = "%1min"
+}
+
 tztime local {
   format = "%Y-%m-%d %H:%M"
 }
 
-load {
-  format = "%1min"
+read_file kbd_layout {
+  path = "~/.i3status-kbd-layout"
 }
