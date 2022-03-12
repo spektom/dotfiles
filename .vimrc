@@ -25,7 +25,7 @@ Plug 'tpope/vim-fireplace'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'elzr/vim-json'
-Plug 'mindriot101/vim-yapf'
+Plug 'psf/black', { 'branch': 'stable' }
 Plug 'chase/vim-ansible-yaml', { 'for': 'yaml' }
 call plug#end()
 
@@ -81,4 +81,4 @@ autocmd FileType json noremap <buffer><Leader>cf :call JsonBeautify()<cr>
 autocmd FileType jsx noremap <buffer><Leader>cf :call JsxBeautify()<cr>
 autocmd FileType html noremap <buffer><Leader>cf :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer><Leader>cf :call CSSBeautify()<cr>
-autocmd FileType python nnoremap <buffer><Leader>cf :call Yapf()<CR>
+autocmd FileType python nnoremap <buffer><Leader>cf :Black<cr>
