@@ -4,6 +4,7 @@ set expandtab
 set shiftwidth=2
 set backspace=2
 set viminfo='20,<10000
+set mouse-=a
 
 syntax match nonascii "[^\x00-\x7F]"
 highlight nonascii guibg=Red ctermbg=2
